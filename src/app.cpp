@@ -1,54 +1,57 @@
 #include "app.h"
 
 sf::RenderWindow App::_glowneOkno;
+UI App::_GUI;
 Gra App::_gra;
-sf::Event App::_wydarzenie;
-bool App::klawiszWcisniety[LICZBA_KLAWISZY];
-bool App::przyciskMyszyWcisniety[LICZBA_PRZYCISKOW_MYSZY];
-int App::pozMyszy_x, App::pozMyszy_y;
 
 void App::inicjalizacja(const char* tytul, int szerOkna, int wysOkna)
 {
-	_glowneOkno.create(sf::VideoMode(szerOkna, wysOkna), tytul, sf::Style::Close|sf::Style::Titlebar);
+	int wlasciwosci_okna = sf::Style::Close | sf::Style::Titlebar/*| sf::Style::Resize*/;
+	_glowneOkno.create(sf::VideoMode(szerOkna, wysOkna), tytul, wlasciwosci_okna);
+	_glowneOkno.setFramerateLimit(30);
 	
 	for(int i = 0; i < LICZBA_KLAWISZY; ++i)
-		klawiszWcisniety[i] = false;
+		UI::klawiszWcisniety[i] = false;
 	for(int i = 0; i < LICZBA_PRZYCISKOW_MYSZY; ++i)
-		przyciskMyszyWcisniety[i] = false;
-}
-
-void App::czyszczenie()
-{
+		UI::przyciskMyszyWcisniety[i] = false;
 	
+	_GUI.utworzUI(&_glowneOkno);
 }
 
 void App::sprawdzWydarzenia()
 {
-	while(_glowneOkno.pollEvent(_wydarzenie))
+	while(_glowneOkno.pollEvent(UI::wydarzenie))
 	{
-		switch(_wydarzenie.type)
+		switch(UI::wydarzenie.type)
 		{
 			case sf::Event::Closed:
 				_glowneOkno.close();
 				break;
 			
 			case sf::Event::KeyPressed:
-				klawiszWcisniety[_wydarzenie.key.code] = true;
+				UI::klawiszWcisniety[UI::wydarzenie.key.code] = true;
 				break;
 			case sf::Event::KeyReleased:
-				klawiszWcisniety[_wydarzenie.key.code] = false;
+				UI::klawiszWcisniety[UI::wydarzenie.key.code] = false;
 				break;
 			
 			case sf::Event::MouseMoved:
-				pozMyszy_x = _wydarzenie.mouseMove.x;
-				pozMyszy_y = _wydarzenie.mouseMove.y;
+				UI::pozMyszy_x = UI::wydarzenie.mouseMove.x;
+				UI::pozMyszy_y = UI::wydarzenie.mouseMove.y;
 				break;
 			case sf::Event::MouseButtonPressed:
-				przyciskMyszyWcisniety[_wydarzenie.mouseButton.button] = true;
+				UI::przyciskMyszyWcisniety[UI::wydarzenie.mouseButton.button] = true;
+				_GUI.aktualnieAktywnyObiekt->wcisnij(UI::wydarzenie.mouseButton.button, ZRODLO_MYSZ);
 				break;
 			case sf::Event::MouseButtonReleased:
-				przyciskMyszyWcisniety[_wydarzenie.mouseButton.button] = false;
+				UI::przyciskMyszyWcisniety[UI::wydarzenie.mouseButton.button] = false;
+				_GUI.aktualnieAktywnyObiekt->pusc(UI::wydarzenie.mouseButton.button, ZRODLO_MYSZ);
 				break;
 		}
 	}
+}
+
+void App::czyszczenie()
+{
+	_GUI.czyscWszystko();
 }
