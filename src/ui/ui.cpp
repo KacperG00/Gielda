@@ -15,7 +15,8 @@ void UI::rysuj()
 {
 	for( int i = 0; i < obiekty.size(); ++i )
 	{
-		if(obiekty[i]->sprawdzAktywnosc(pozMyszy_x, pozMyszy_y))
+		obiekty[i]->aktualizuj();
+		if(obiekty[i]->stan & Obiekt::AKTYWNY)
 			aktualnieAktywnyObiekt = obiekty[i];
 		obiekty[i]->rysuj();
 	}

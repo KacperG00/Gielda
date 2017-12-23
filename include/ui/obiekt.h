@@ -7,22 +7,29 @@ class Obiekt
 {
 public:
 	sf::RenderTarget* render_target;
-	int poz_x, poz_y, szer, wys;
+	float poz_x, poz_y, szer, wys;
 	
-	enum class Stan {
-		NIE_DO_AKTYWOWANIA = 1,
-		AKTYWNY,
-		NIEAKTYWNY,
-		WCISNIETY,
-	} stan;
-
+	enum class Typ {
+		OBIEKT = 1,
+		PRZYCISK = 10,
+		SUWAK,
+		KONTENER
+	} typ;
+	
+	unsigned int stan;
+	
+	static const unsigned int NIE_DO_AKTYWOWANIA;
+	static const unsigned int AKTYWOWALNY;
+	static const unsigned int AKTYWNY;
+	static const unsigned int WCISNIETY;
+	
 public:
-	Obiekt(int x, int y, int szerokosc, int wysokosc);
+	Obiekt( Typ t, float x, float y, float szerokosc, float wysokosc);
 	~Obiekt();
 	
 	virtual void rysuj() = 0;
 	
-	virtual bool sprawdzAktywnosc(int mysz_x, int mysz_y) = 0;
+	virtual bool aktualizuj() = 0;
 	virtual void wcisnij(unsigned int klawisz, unsigned char zrodlo) = 0;
 	virtual void pusc(unsigned int klawisz, unsigned char zrodlo) = 0;
 };

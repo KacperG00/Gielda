@@ -5,7 +5,6 @@
 
 #include "ui/czcionka.h"
 #include "ui/obiekt.h"
-#include "ui/przycisk.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -38,7 +37,7 @@ public:
 	void rysuj();
 	
 	inline void dodajCzcionke(const Czcionka& czcionka) {czcionki.push_back(czcionka);}
-	void dodajObiekt(Obiekt* przycisk);
+	void dodajObiekt(Obiekt* obiekt);
 	
 	void czyscWszystko();
 	void zamknijOkno() {okno->close();}

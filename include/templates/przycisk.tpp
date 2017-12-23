@@ -1,13 +1,16 @@
 #include "ui/przycisk.h"
+#include "ui/ui.h"
 #include "ui/klawisze_przyciski.h"
 
 template < class T >
-Przycisk<T>::Przycisk(int x, int y, Czcionka* czcionka, const char* tekst)
-	: Obiekt(x, y, 0, 0),
+Przycisk<T>::Przycisk(float x, float y, Czcionka* czcionka, const char* tekst)
+	: Obiekt(Typ::PRZYCISK, x, y, 0.0f, 0.0f),
 	wskKlasa(nullptr), wskAkcja(nullptr),
 	padding_top_down(4), padding_left_right(4),
 	tekst(tekst), czcionka(czcionka)
 {
+	stan = AKTYWOWALNY;
+	
 	generujNapis();
 	liczWymiary();
 	generujTlo();
@@ -30,40 +33,25 @@ void Przycisk<T>::rysuj()
 }
 
 template < class T >
-bool Przycisk<T>::sprawdzAktywnosc(int mysz_x, int mysz_y)
+bool Przycisk<T>::aktualizuj()
 {
-	if(stan == Stan::NIE_DO_AKTYWOWANIA || stan == Stan::WCISNIETY)
+	if(stan & WCISNIETY)
 		return false;
 	
-	stan = (poz_x <= mysz_x && poz_x+szer >= mysz_x && poz_y <= mysz_y && poz_y+wys >= mysz_y) ? Stan::AKTYWNY : Stan::NIEAKTYWNY;
+	sprawdzAktywnosc();
+	aktualizujKolor();
 	
-	if(stan == Stan::NIEAKTYWNY)
-	{
-		if( !(animacjaTla.czyAktualnyRownyPodstawowy()) )
-		{
-			animacjaTla.animuj();
-		}
-	}
-	else
-	{
-		if( !(animacjaTla.czyAktualnyRownyDocelowy()) )
-		{
-			animacjaTla.animuj(true);
-		}
-	}
-	
-	tlo.setFillColor(animacjaTla.kolorAktualny);
-	return (stan == Stan::AKTYWNY);
+	return (stan & AKTYWNY);
 }
 
 template < class T >
 void Przycisk<T>::wcisnij(unsigned int klawisz, unsigned char zrodlo)
 {
-	if( stan == Stan::AKTYWNY )
+	if( stan & AKTYWNY )
 	{
 		if( klawisz == PRZYCISK_MYSZY_LEWY )
 		{
-			stan = Stan::WCISNIETY;
+			stan |= WCISNIETY;
 			
 			if(wskAkcja != nullptr)
 				(wskKlasa->*wskAkcja)();
@@ -74,10 +62,8 @@ void Przycisk<T>::wcisnij(unsigned int klawisz, unsigned char zrodlo)
 template < class T >
 void Przycisk<T>::pusc(unsigned int klawisz, unsigned char zrodlo)
 {
-	if( stan == Stan::WCISNIETY )
-	{
-		stan = Stan::AKTYWNY;
-	}
+	if( stan & WCISNIETY )
+		stan -= WCISNIETY;
 }
 
 
@@ -124,7 +110,6 @@ void Przycisk<T>::ustawKolorTla(unsigned char R, unsigned char G, unsigned char 
 template < class T >
 void Przycisk<T>::ustawAnimacjeTla(const sf::Color& docelowy, float szybkosc)
 {
-	stan = Stan::NIEAKTYWNY;
 	animacjaTla = AnimacjaKoloru(tlo.getFillColor(), docelowy, szybkosc);
 }
 
@@ -148,7 +133,7 @@ void Przycisk<T>::generujNapis()
 	f_prostokat = napis.getGlobalBounds();
 	
 	napis.move(-f_prostokat.left, -f_prostokat.top);
-	napis.move((float)(poz_x+padding_left_right), (float)(poz_y+padding_top_down));
+	napis.move(poz_x+(float)padding_left_right, poz_y+(float)padding_top_down);
 }
 
 template < class T >
@@ -169,23 +154,50 @@ void Przycisk<T>::generujTlo()
 }
 
 template < class T >
+bool Przycisk<T>::sprawdzAktywnosc()
+{
+	float mysz_x = (float)(UI::pozMyszy_x);
+	float mysz_y = (float)(UI::pozMyszy_y);
+	
+	if( poz_x <= mysz_x && poz_x+szer >= mysz_x && poz_y <= mysz_y && poz_y+wys >= mysz_y )
+		stan |= AKTYWNY;
+	else if( stan & AKTYWNY )
+		stan -= AKTYWNY;
+	
+	return (stan & AKTYWNY);
+}
+
+template < class T >
 void Przycisk<T>::aktualizujPozycje()
 {
 	tlo.setSize(sf::Vector2f(szer, wys));
-	tlo.setPosition((float)poz_x, (float)poz_y);
+	tlo.setPosition(poz_x, poz_y);
 }
 
 template < class T >
 void Przycisk<T>::aktualizujKolor()
 {
-	if(stan != Stan::NIE_DO_AKTYWOWANIA)
+	if( stan & WCISNIETY )
 	{
-		if(stan == Stan::AKTYWNY || stan == Stan::NIEAKTYWNY)
-			tlo.setFillColor(animacjaTla.kolorAktualny);
-		else if( stan == Stan::WCISNIETY )
+		animacjaTlaPoKliknieciu.animuj();
+		tlo.setFillColor(animacjaTlaPoKliknieciu.kolorAktualny);
+	}
+	else if( stan & AKTYWNY )
+	{
+		if( !(animacjaTla.czyAktualnyRownyDocelowy()) )
 		{
-			animacjaTlaPoKliknieciu.animuj();
-			tlo.setFillColor(animacjaTlaPoKliknieciu.kolorAktualny);
+			animacjaTla.animuj(true);
 		}
+		
+		tlo.setFillColor(animacjaTla.kolorAktualny);
+	}
+	else
+	{
+		if( !(animacjaTla.czyAktualnyRownyPodstawowy()) )
+		{
+			animacjaTla.animuj();
+		}
+		
+		tlo.setFillColor(animacjaTla.kolorAktualny);
 	}
 }

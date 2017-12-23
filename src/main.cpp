@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "app.h"
+#include "ui/ui.h"
+#include "ui/przycisk.h"
+#include "ui/suwak.h"
 
 #include "zapis_wczyt.h"
 
@@ -21,7 +24,7 @@ int main(int argc, const char* argv[])
 	Czcionka cz_francoisone;
 	wczytajCzcionke(cz_francoisone,"resources/FrancoisOne-Regular.ttf");
 	zmienKolorCzcionki(cz_francoisone, sf::Color(0x11, 0x11, 0x11, 0xff));
-	zmienWielkoscCzcionki(cz_francoisone, 100);
+	zmienWielkoscCzcionki(cz_francoisone, 64);
 	App::_GUI.dodajCzcionke(cz_francoisone);
 	
 	void (Gra::*gra_funkcja)() = &Gra::info;
@@ -48,6 +51,10 @@ int main(int argc, const char* argv[])
 	przycisk3->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk3->ustawKolorTla(220, 220, 220, 255);
 	App::_GUI.dodajObiekt(przycisk3);
+	
+	Suwak * suwak = new Suwak(5,380,630,15,true);
+	suwak->ustawAnimacjeUchwytu(sf::Color(255, 140, 140, 255), 0.1f);
+	App::_GUI.dodajObiekt(suwak);
 	
 	sf::RectangleShape shape(sf::Vector2f(10.0f, 10.0f));
 	shape.setFillColor(sf::Color::Green);

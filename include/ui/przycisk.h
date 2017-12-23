@@ -30,12 +30,12 @@ private:
 	Czcionka* czcionka;
 	
 public:
-	Przycisk(int x, int y, Czcionka* czcionka, const char* tekst);
+	Przycisk(float x, float y, Czcionka* czcionka, const char* tekst);
 	~Przycisk();
 	
 	void rysuj() override;
 	
-	bool sprawdzAktywnosc(int mysz_x, int mysz_y) override;
+	bool aktualizuj() override;
 	void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
 	void pusc(unsigned int klawisz, unsigned char zrodlo) override;
 	
@@ -52,6 +52,7 @@ private:
 	void generujNapis();
 	void liczWymiary();
 	void generujTlo();
+	bool sprawdzAktywnosc();
 	void aktualizujPozycje();
 	void aktualizujKolor();
 };
