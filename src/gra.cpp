@@ -52,7 +52,7 @@ void Gra::usunGracza(const char* nazwa_gracza)
 {
 	
 	// Szuka graczy o nazwie równej łańcuchowi nazwa_gracza
-	for( int i = 0; i < _gracze.size(); ++i )
+	for( unsigned int i = 0; i < _gracze.size(); ++i )
 	{
 		if( !strcmp((_gracze[i].wezNazweGracza().c_str()), nazwa_gracza) )
 		{
@@ -64,19 +64,19 @@ void Gra::usunGracza(const char* nazwa_gracza)
 void Gra::info()
 {
 	printf("-> Gracze(%d):\n", _gracze.size());
-	for( int i = 0; i < _gracze.size(); ++i )
+	for( unsigned int i = 0; i < _gracze.size(); ++i )
 	{
 		printf("%d. %s\n", i+1, _gracze[i].wezNazweGracza().c_str());
 	}
 	
 	printf("-> Spolki(%d):\n", _spolki.size());
-	for( int i = 0; i < _spolki.size(); ++i )
+	for( unsigned int i = 0; i < _spolki.size(); ++i )
 	{
 		printf("%3d. %-32s | %4d | %4d\n", i+1, _spolki[i].nazwa.c_str(), _spolki[i].wartosc_akcji, _spolki[i].dostepne_akcje);
 	}
 	
 	printf("-> Waluty(%d):\n", _waluty.size());
-	for( int i = 0; i < _waluty.size(); ++i )
+	for( unsigned int i = 0; i < _waluty.size(); ++i )
 	{
 		printf("%3d. %10s | %4.2f\n", i+1, _waluty[i].nazwa.c_str(), _waluty[i].wartosc);
 	}
@@ -100,7 +100,7 @@ void Gra::dodajSpolke(Spolka::Typ typ_spolki, const char* nazwa, unsigned int wa
 
 void Gra::usunSpolke(const char* nazwa)
 {
-	for( int i = 0; i < _spolki.size(); ++i )
+	for( unsigned int i = 0; i < _spolki.size(); ++i )
 	{
 		if( !strcmp( _spolki[i].nazwa.c_str(), nazwa ) )
 		{
@@ -125,7 +125,7 @@ void Gra::dodajWalute(const char* nazwa, float wartosc)
 
 void Gra::usunWalute(const char* nazwa)
 {
-	for( int i = 0; i < _waluty.size(); ++i )
+	for( unsigned int i = 0; i < _waluty.size(); ++i )
 	{
 		if( !strcmp( _waluty[i].nazwa.c_str(), nazwa ) )
 		{

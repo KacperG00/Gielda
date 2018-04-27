@@ -28,7 +28,7 @@ std::string utworzZnacznik(TypZnacznika typ, void* dane)
 		} break;
 		case TypZnacznika::KONCZACY:
 		{
-			// zancznik konczący ma tylko swój typ
+			// znacznik konczący ma tylko swój typ
 		} break;
 		
 		// F O R M A T   Z A P I S U   S P O L E K
@@ -124,7 +124,7 @@ void rozdzielArgZnacznika(const char* tresc, std::vector<std::string>& docelowa_
 	std::string tymczasowy = "";
 	bool koniec_zn = false;
 	
-	for( int i = 0; i <= dlugosc_lancucha || !koniec_zn; ++i )
+	for( unsigned int i = 0; i <= dlugosc_lancucha || !koniec_zn; ++i )
 	{
 		switch(tresc[i])
 		{

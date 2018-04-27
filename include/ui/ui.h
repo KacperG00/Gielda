@@ -5,6 +5,9 @@
 
 #include "ui/czcionka.h"
 #include "ui/obiekt.h"
+#include "ui/przycisk.h"
+#include "ui/suwak.h"
+#include "ui/kontener.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -34,7 +37,9 @@ private:
 	
 public:
 	void utworzUI(sf::RenderWindow* window);
+
 	void rysuj();
+	void aktualizuj();
 	
 	inline void dodajCzcionke(const Czcionka& czcionka) {czcionki.push_back(czcionka);}
 	void dodajObiekt(Obiekt* obiekt);

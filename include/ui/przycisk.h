@@ -35,9 +35,12 @@ public:
 	
 	void rysuj() override;
 	
-	bool aktualizuj() override;
+	Obiekt * aktualizuj() override;
 	void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
 	void pusc(unsigned int klawisz, unsigned char zrodlo) override;
+
+	void przesun(float x, float y) override;
+	void ustawPozycje(float x, float y) override;
 	
 	
 	void ustawAkcje(T* klasa, void (T::*a)());
@@ -52,7 +55,6 @@ private:
 	void generujNapis();
 	void liczWymiary();
 	void generujTlo();
-	bool sprawdzAktywnosc();
 	void aktualizujPozycje();
 	void aktualizujKolor();
 };

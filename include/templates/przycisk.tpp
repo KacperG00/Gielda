@@ -33,15 +33,14 @@ void Przycisk<T>::rysuj()
 }
 
 template < class T >
-bool Przycisk<T>::aktualizuj()
+Obiekt * Przycisk<T>::aktualizuj()
 {
-	if(stan & WCISNIETY)
-		return false;
-	
-	sprawdzAktywnosc();
+	Obiekt * aktualnyObiekt = nullptr;
+
+	aktualnyObiekt = sprawdzAktywnosc();
 	aktualizujKolor();
 	
-	return (stan & AKTYWNY);
+	return aktualnyObiekt;
 }
 
 template < class T >
@@ -63,8 +62,30 @@ template < class T >
 void Przycisk<T>::pusc(unsigned int klawisz, unsigned char zrodlo)
 {
 	if( stan & WCISNIETY )
-		stan -= WCISNIETY;
+		stan &= ~WCISNIETY;
 }
+
+
+template < class T >
+void Przycisk<T>::przesun(float x, float y)
+{
+	poz_x = poz_x + x;
+	poz_y = poz_y + y;
+
+	ustawWPozycje((int)poz_x, (int)poz_y);
+	
+	napis.move(sf::Vector2f(x, y));
+	tlo.move(sf::Vector2f(x, y));
+}
+
+template < class T >
+void Przycisk<T>::ustawPozycje(float x, float y)
+{
+	float przesuniecie_x = x - poz_x;
+	float przesuniecie_y = y - poz_y;
+	przesun(przesuniecie_x, przesuniecie_y);
+}
+
 
 
 
@@ -127,7 +148,7 @@ void Przycisk<T>::generujNapis()
 	napis.setFont(this->czcionka->czcionka);
 	napis.setString(this->tekst.c_str());
 	napis.setCharacterSize(this->czcionka->wielkosc);
-	napis.setColor(this->czcionka->kolorWypelnienia);
+	napis.setFillColor(this->czcionka->kolorWypelnienia);
 	
 	sf::FloatRect f_prostokat;
 	f_prostokat = napis.getGlobalBounds();
@@ -151,20 +172,6 @@ void Przycisk<T>::generujTlo()
 {
 	aktualizujPozycje();
 	aktualizujKolor();
-}
-
-template < class T >
-bool Przycisk<T>::sprawdzAktywnosc()
-{
-	float mysz_x = (float)(UI::pozMyszy_x);
-	float mysz_y = (float)(UI::pozMyszy_y);
-	
-	if( poz_x <= mysz_x && poz_x+szer >= mysz_x && poz_y <= mysz_y && poz_y+wys >= mysz_y )
-		stan |= AKTYWNY;
-	else if( stan & AKTYWNY )
-		stan -= AKTYWNY;
-	
-	return (stan & AKTYWNY);
 }
 
 template < class T >

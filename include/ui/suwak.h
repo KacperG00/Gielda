@@ -27,15 +27,19 @@ public:
 	AnimacjaKoloru animacjaUchwytu;
 	
 public:
-	Suwak(float x, float y, float szerokosc, float wysokosc, bool poziomy);
+	Suwak(float x, float y, float szerokosc, float wysokosc, bool suwak_poziomy);
 	~Suwak();
 	
 	void rysuj() override;
 	
-	bool aktualizuj() override;
+	Obiekt * aktualizuj() override;
 	void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
 	void pusc(unsigned int klawisz, unsigned char zrodlo) override;
 	
+	void przesun(float x, float y) override;
+	void ustawPozycje(float x, float y) override;
+
+	void ustawWartosc(float wartosc);
 	void ustawAnimacjeUchwytu(const sf::Color& docelowy, float szybkosc);
 	
 private:
