@@ -23,7 +23,7 @@ class UI
 public:
 	App* aplikacja;
 	sf::RenderWindow* okno;
-	Obiekt* aktualnieAktywnyObiekt;
+	static Obiekt* aktualnieAktywnyObiekt;
 	
 	static sf::Event wydarzenie;
 	static bool klawiszWcisniety[LICZBA_KLAWISZY];

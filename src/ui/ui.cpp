@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+Obiekt * UI::aktualnieAktywnyObiekt = nullptr;
+
 sf::Event UI::wydarzenie;
 bool UI::klawiszWcisniety[LICZBA_KLAWISZY];
 bool UI::przyciskMyszyWcisniety[LICZBA_PRZYCISKOW_MYSZY];
@@ -25,23 +27,32 @@ void UI::aktualizuj()
 {
 	Obiekt * objwsk = nullptr;
 
-	for (unsigned int i = 0; i < obiekty.size(); ++i)
+	if (!(aktualnieAktywnyObiekt && przyciskMyszyWcisniety[PRZYCISK_MYSZY_LEWY]))
 	{
-		if (((objwsk = obiekty[i]->aktualizuj()) != aktualnieAktywnyObiekt) && (objwsk != nullptr))
+		aktualnieAktywnyObiekt = nullptr;
+		
+		for (unsigned int i = 0; i < obiekty.size(); ++i)
 		{
-			if(objwsk->stan & Obiekt::AKTYWNY)
-				aktualnieAktywnyObiekt = objwsk;
+			if ((objwsk = obiekty[i]->aktualizuj()) && (objwsk != nullptr))
+			{
+				if(objwsk->stan & Obiekt::AKTYWNY)
+					aktualnieAktywnyObiekt = objwsk;
+			}
 		}
-		
-		//if (!(objwsk = obiekty[i]->aktualizuj()) && aktualnieAktywnyObiekt == obiekty[i])
-		//	aktualnieAktywnyObiekt = nullptr;
-		//else if (aktualnieAktywnyObiekt == nullptr && objwsk && (objwsk->stan & Obiekt::AKTYWNY))
-		//{
-		//	aktualnieAktywnyObiekt = objwsk;
-		//}
-		
+	}
+	else
+	{
+		for (unsigned int i = 0; i < obiekty.size(); ++i)
+		{
+			obiekty[i]->aktualizuj();
+		}
 	}
 
+	if (aktualnieAktywnyObiekt)
+	{
+		std::cerr << "stan : " << aktualnieAktywnyObiekt->stan << std::endl;
+	}
+	
 	std::cerr << "Aktualnie aktywny obiekt: " << aktualnieAktywnyObiekt << std::endl;
 }
 

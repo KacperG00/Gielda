@@ -1,5 +1,7 @@
 #include "app.h"
 
+#include <iostream>
+
 sf::RenderWindow* App::_glowneOkno;
 UI App::_GUI;
 Gra App::_gra;
@@ -43,12 +45,12 @@ void App::sprawdzWydarzenia()
 				break;
 			case sf::Event::MouseButtonPressed:
 				UI::przyciskMyszyWcisniety[UI::wydarzenie.mouseButton.button] = true;
-				if(_GUI.aktualnieAktywnyObiekt)
+				if(_GUI.aktualnieAktywnyObiekt != nullptr && _GUI.aktualnieAktywnyObiekt != (void*)0xDDDDDDDD)
 					_GUI.aktualnieAktywnyObiekt->wcisnij(UI::wydarzenie.mouseButton.button, ZRODLO_MYSZ);
 				break;
 			case sf::Event::MouseButtonReleased:
 				UI::przyciskMyszyWcisniety[UI::wydarzenie.mouseButton.button] = false;
-				if(_GUI.aktualnieAktywnyObiekt)
+				if(_GUI.aktualnieAktywnyObiekt != nullptr && _GUI.aktualnieAktywnyObiekt != (void*)0xDDDDDDDD)
 					_GUI.aktualnieAktywnyObiekt->pusc(UI::wydarzenie.mouseButton.button, ZRODLO_MYSZ);
 				break;
 		}

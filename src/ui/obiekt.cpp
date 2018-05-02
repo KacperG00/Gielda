@@ -62,7 +62,7 @@ Obiekt * Obiekt::sprawdzAktywnosc()
 void Obiekt::przydzielDoGrupy(Grupa* grupa)
 {
 	this->grupa = grupa;
-	stan = stan | NALEZY_DO_GRUPY;
+	stan |= NALEZY_DO_GRUPY;
 
 	wpoz_x = wpoz_x + grupa->wpoz_x;
 	wpoz_y = wpoz_y + grupa->wpoz_y;

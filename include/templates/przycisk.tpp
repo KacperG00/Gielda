@@ -1,4 +1,5 @@
 #include "ui/przycisk.h"
+
 #include "ui/ui.h"
 #include "ui/klawisze_przyciski.h"
 
@@ -46,15 +47,12 @@ Obiekt * Przycisk<T>::aktualizuj()
 template < class T >
 void Przycisk<T>::wcisnij(unsigned int klawisz, unsigned char zrodlo)
 {
-	if( stan & AKTYWNY )
+	if( stan & AKTYWNY && zrodlo == ZRODLO_MYSZ && klawisz == PRZYCISK_MYSZY_LEWY )
 	{
-		if( klawisz == PRZYCISK_MYSZY_LEWY )
-		{
-			stan |= WCISNIETY;
-			
-			if(wskAkcja != nullptr)
-				(wskKlasa->*wskAkcja)();
-		}
+		stan |= WCISNIETY;
+		
+		if(wskAkcja != nullptr)
+			(wskKlasa->*wskAkcja)();
 	}
 }
 

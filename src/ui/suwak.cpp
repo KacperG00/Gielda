@@ -86,6 +86,8 @@ void Suwak::wcisnij(unsigned int klawisz, unsigned char zrodlo)
 		stan |= WCISNIETY;
 		ostPozMyszy_x = UI::pozMyszy_x;
 		ostPozMyszy_y = UI::pozMyszy_y;
+
+		std::cerr << "oh yeah\n";
 	}
 }
 

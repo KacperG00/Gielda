@@ -32,37 +32,37 @@ int main(int argc, const char* argv[])
 	
 	Przycisk<Gra> * przycisk1 = new Przycisk<Gra>(0, 3, &cz_francoisone, "Start");
 	przycisk1->ustawAkcje(gra, gra_funkcja);
-	przycisk1->ustawMinWymiary(500, 100);
+	przycisk1->ustawMinWymiary(560, 100);
 	przycisk1->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk1->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk1->ustawKolorTla(220, 220, 220, 255);
 	App::_GUI.dodajObiekt(przycisk1);
 	
 	Przycisk<Gra> * przycisk2 = new Przycisk<Gra>(0, 106, &cz_francoisone, "Options");
-	przycisk2->ustawMinWymiary(500, 100);
+	przycisk2->ustawMinWymiary(460, 100);
 	przycisk2->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk2->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk2->ustawKolorTla(220, 220, 220, 255);
 	//App::_GUI.dodajObiekt(przycisk2);
 
 	Przycisk<UI> * przycisk3 = new Przycisk<UI>(0, 209, &cz_francoisone, "A");
-	przycisk3->ustawMinWymiary(500, 100);
+	przycisk3->ustawMinWymiary(460, 100);
 	przycisk3->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk3->ustawKolorTla(220, 220, 220, 255);
 
 	Przycisk<UI> * przycisk4 = new Przycisk<UI>(0, 312, &cz_francoisone, "B");
-	przycisk4->ustawMinWymiary(500, 100);
+	przycisk4->ustawMinWymiary(460, 100);
 	przycisk4->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk4->ustawKolorTla(220, 220, 220, 255);
 
 	Przycisk<UI> * przycisk5 = new Przycisk<UI>(0, 415, &cz_francoisone, "C");
-	przycisk5->ustawMinWymiary(500, 100);
+	przycisk5->ustawMinWymiary(460, 100);
 	przycisk5->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk5->ustawKolorTla(220, 220, 220, 255);
 
 	Przycisk<UI> * przycisk6 = new Przycisk<UI>(0, 518, &cz_francoisone, "Quit()");
 	przycisk6->ustawAkcje(gui, gui_funkcja);
-	przycisk6->ustawMinWymiary(500, 100);
+	przycisk6->ustawMinWymiary(460, 100);
 	przycisk6->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk6->ustawKolorTla(220, 220, 220, 255);
 	//App::_GUI.dodajObiekt(przycisk3);
@@ -106,6 +106,25 @@ int main(int argc, const char* argv[])
 		
 		pozmyszyx_text.setString(sf::String(mysza_x));
 		pozmyszyy_text.setString(sf::String(mysza_y));
+
+		//std::cerr << "~Aktualnie aktywny obiekt: " << App::_GUI.aktualnieAktywnyObiekt << " ";
+		//if (App::_GUI.aktualnieAktywnyObiekt && App::_GUI.aktualnieAktywnyObiekt->stan & Obiekt::AKTYWNY)
+		//	std::cerr << "AKTYWNY";
+		//std::cerr << std::endl;
+
+		/*if (App::_GUI.aktualnieAktywnyObiekt)
+		{
+			int	x1 = App::_GUI.aktualnieAktywnyObiekt->wpoz_x;
+			int	y1 = App::_GUI.aktualnieAktywnyObiekt->wpoz_y;
+			int	x2 = App::_GUI.aktualnieAktywnyObiekt->wpoz_x + App::_GUI.aktualnieAktywnyObiekt->szer;
+			int	y2 = App::_GUI.aktualnieAktywnyObiekt->wpoz_y + App::_GUI.aktualnieAktywnyObiekt->wys;
+
+			std::cerr << "x1: " << x1 << " | y1: " << y1 << std::endl;
+			std::cerr << "x2: " << x2 << " | y2: " << y2 << std::endl;
+
+			std::cerr << "Stan = " << App::_GUI.aktualnieAktywnyObiekt->stan << std::endl;
+		}*/
+		
 
 		App::sprawdzWydarzenia();
 		

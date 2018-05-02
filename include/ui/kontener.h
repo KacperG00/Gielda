@@ -14,10 +14,11 @@ class Kontener : public Grupa
 	float gruboscSuwaka;
 	float gruboscKrawedzi;
 
+	// szerokosc i wysokosc zawartosci kontenera
 	float koniecW_x, koniecW_y;
 
 	sf::Sprite sprite;
-	sf::RenderTexture tekstura;
+	sf::RenderTexture * tekstura;
 	float kam_x, kam_y, kam_s, kam_w;
 
 public:
