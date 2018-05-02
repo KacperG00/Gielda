@@ -3,6 +3,7 @@
 
 #include "ui/klawisze_przyciski.h"
 
+#include "ui/uklad.h"
 #include "ui/czcionka.h"
 #include "ui/obiekt.h"
 #include "ui/przycisk.h"
@@ -20,9 +21,11 @@ class App;
 
 class UI
 {
+	int aktualnyUklad;
+
 public:
-	App* aplikacja;
-	sf::RenderWindow* okno;
+	static App* aplikacja;
+	static sf::RenderWindow* okno;
 	static Obiekt* aktualnieAktywnyObiekt;
 	
 	static sf::Event wydarzenie;
@@ -33,7 +36,7 @@ public:
 	
 private:
 	std::vector<Czcionka> czcionki;
-	std::vector<Obiekt*> obiekty;
+	std::vector<Uklad*> uklady;
 	
 public:
 	void utworzUI(sf::RenderWindow* window);
@@ -41,8 +44,11 @@ public:
 	void rysuj();
 	void aktualizuj();
 	
+	void wybierzUklad(unsigned int uklad);
+
 	inline void dodajCzcionke(const Czcionka& czcionka) {czcionki.push_back(czcionka);}
-	void dodajObiekt(Obiekt* obiekt);
+	Uklad * dodajUklad();
+	void dodajObiekt(Obiekt* obiekt, unsigned int uklad);
 	
 	void czyscWszystko();
 	void zamknijOkno() {okno->close();}

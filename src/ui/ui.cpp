@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+App* UI::aplikacja = nullptr;
+sf::RenderWindow* UI::okno = nullptr;
 Obiekt * UI::aktualnieAktywnyObiekt = nullptr;
 
 sf::Event UI::wydarzenie;
@@ -13,13 +15,18 @@ void UI::utworzUI(sf::RenderWindow* window)
 {
 	//aplikacja = app;
 	okno = window;
+	aktualnyUklad = -1;
+	dodajUklad();
 }
 
 void UI::rysuj()
 {
-	for( unsigned int i = 0; i < obiekty.size(); ++i )
+	if (aktualnyUklad >= 0)
 	{
-		obiekty[i]->rysuj();
+		for( unsigned int i = 0; i < uklady[aktualnyUklad]->obiekty.size(); ++i )
+		{
+			uklady[aktualnyUklad]->obiekty[i]->rysuj();
+		}
 	}
 }
 
@@ -27,26 +34,39 @@ void UI::aktualizuj()
 {
 	Obiekt * objwsk = nullptr;
 
-	if (!(aktualnieAktywnyObiekt && przyciskMyszyWcisniety[PRZYCISK_MYSZY_LEWY]))
+	std::vector<Obiekt*> * obiekty = nullptr;
+
+	if (aktualnyUklad >= 0 && (unsigned int)aktualnyUklad < uklady.size())
 	{
-		aktualnieAktywnyObiekt = nullptr;
-		
-		for (unsigned int i = 0; i < obiekty.size(); ++i)
+		obiekty = &(uklady[aktualnyUklad]->obiekty);
+
+		if (!(aktualnieAktywnyObiekt && przyciskMyszyWcisniety[PRZYCISK_MYSZY_LEWY]))
 		{
-			if ((objwsk = obiekty[i]->aktualizuj()) && (objwsk != nullptr))
+			aktualnieAktywnyObiekt = nullptr;
+		
+			for (unsigned int i = 0; i < obiekty->size(); ++i)
 			{
-				if(objwsk->stan & Obiekt::AKTYWNY)
-					aktualnieAktywnyObiekt = objwsk;
+				if ((objwsk = obiekty->at(i)->aktualizuj()) && (objwsk != nullptr))
+				{
+					if(objwsk->stan & Obiekt::AKTYWNY)
+						aktualnieAktywnyObiekt = objwsk;
+				}
+			}
+		}
+		else
+		{
+			for (unsigned int i = 0; i < obiekty->size(); ++i)
+			{
+				obiekty->at(i)->aktualizuj();
 			}
 		}
 	}
 	else
 	{
-		for (unsigned int i = 0; i < obiekty.size(); ++i)
-		{
-			obiekty[i]->aktualizuj();
-		}
+		aktualnieAktywnyObiekt = nullptr;
 	}
+
+
 
 	if (aktualnieAktywnyObiekt)
 	{
@@ -56,17 +76,34 @@ void UI::aktualizuj()
 	std::cerr << "Aktualnie aktywny obiekt: " << aktualnieAktywnyObiekt << std::endl;
 }
 
-void UI::dodajObiekt(Obiekt* obiekt)
+
+void UI::wybierzUklad(unsigned int uklad)
+{
+	aktualnyUklad = uklad;
+}
+
+
+
+Uklad * UI::dodajUklad()
+{
+	Uklad * uklad = new Uklad;
+	uklady.push_back(uklad);
+	aktualnyUklad++;
+
+	return uklad;
+}
+
+void UI::dodajObiekt(Obiekt* obiekt, unsigned int uklad)
 {
 	obiekt->render_target = okno;
-	obiekty.push_back(obiekt);
+	uklady[uklad]->obiekty.push_back(obiekt);
 }
 
 void UI::czyscWszystko()
 {
-	for( unsigned int i = 0; i < obiekty.size(); ++i )
+	for( unsigned int i = 0; i < uklady.size(); ++i )
 	{
-		delete obiekty[0];
-		obiekty.erase(obiekty.begin());
+		delete uklady[0];
+		uklady.erase(uklady.begin());
 	}
 }

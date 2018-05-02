@@ -36,54 +36,43 @@ int main(int argc, const char* argv[])
 	przycisk1->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk1->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk1->ustawKolorTla(220, 220, 220, 255);
-	App::_GUI.dodajObiekt(przycisk1);
 	
 	Przycisk<Gra> * przycisk2 = new Przycisk<Gra>(0, 106, &cz_francoisone, "Options");
 	przycisk2->ustawMinWymiary(460, 100);
 	przycisk2->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk2->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk2->ustawKolorTla(220, 220, 220, 255);
-	//App::_GUI.dodajObiekt(przycisk2);
 
-	Przycisk<UI> * przycisk3 = new Przycisk<UI>(0, 209, &cz_francoisone, "A");
+	Przycisk<UI> * przycisk3 = new Przycisk<UI>(0, 518, &cz_francoisone, "Quit()");
+	przycisk3->ustawAkcje(gui, gui_funkcja);
 	przycisk3->ustawMinWymiary(460, 100);
 	przycisk3->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk3->ustawKolorTla(220, 220, 220, 255);
 
-	Przycisk<UI> * przycisk4 = new Przycisk<UI>(0, 312, &cz_francoisone, "B");
-	przycisk4->ustawMinWymiary(460, 100);
+	Przycisk<UI> * przycisk4 = new Przycisk<UI>(0, 3, &cz_francoisone, "weird button LOL");
+	przycisk4->ustawAkcje(gui, gui_funkcja);
+	przycisk4->ustawMinWymiary(800, 100);
 	przycisk4->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
+	przycisk4->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk4->ustawKolorTla(220, 220, 220, 255);
 
-	Przycisk<UI> * przycisk5 = new Przycisk<UI>(0, 415, &cz_francoisone, "C");
-	przycisk5->ustawMinWymiary(460, 100);
-	przycisk5->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
-	przycisk5->ustawKolorTla(220, 220, 220, 255);
-
-	Przycisk<UI> * przycisk6 = new Przycisk<UI>(0, 518, &cz_francoisone, "Quit()");
-	przycisk6->ustawAkcje(gui, gui_funkcja);
-	przycisk6->ustawMinWymiary(460, 100);
-	przycisk6->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
-	przycisk6->ustawKolorTla(220, 220, 220, 255);
-	//App::_GUI.dodajObiekt(przycisk3);
-
 	Kontener* kontener = new Kontener(0, 0, 501, 300);
-	App::_GUI.dodajObiekt(kontener);
+	App::_GUI.dodajObiekt(kontener,0);
 	kontener->dodajObiekt(przycisk1);
 	kontener->dodajObiekt(przycisk2);
 	kontener->dodajObiekt(przycisk3);
-	kontener->dodajObiekt(przycisk4);
-	kontener->dodajObiekt(przycisk5);
-	kontener->dodajObiekt(przycisk6);
 
 	kontener->odswiezPozObiektow();
 
 	Suwak * suwak = new Suwak(5,380,630,15,true);
 	suwak->ustawAnimacjeUchwytu(sf::Color(255, 140, 140, 255), 0.1f);
-	App::_GUI.dodajObiekt(suwak);
+	App::_GUI.dodajObiekt(suwak,0);
 
 	suwak->ustawWartosc(0.21f);
 	
+	App::_GUI.dodajUklad();
+	App::_GUI.dodajObiekt(przycisk4, 1);
+
 	//sf::RectangleShape shape(sf::Vector2f(10.0f, 10.0f));
 	//shape.setFillColor(sf::Color::Green);
 	sf::Text pozmyszyx_text;
@@ -125,6 +114,10 @@ int main(int argc, const char* argv[])
 			std::cerr << "Stan = " << App::_GUI.aktualnieAktywnyObiekt->stan << std::endl;
 		}*/
 		
+		if (UI::klawiszWcisniety[KLAWISZ_W])
+			App::_GUI.wybierzUklad(1);
+		else
+			App::_GUI.wybierzUklad(0);
 
 		App::sprawdzWydarzenia();
 		
