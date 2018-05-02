@@ -10,54 +10,58 @@
 
 #include <string>
 
-template < class T >
-class Przycisk : public Obiekt
-{
-public:
-	T* wskKlasa;
-	void (T::*wskAkcja)();
-	
-	sf::Text napis;
-	sf::RectangleShape tlo;
-	
-	AnimacjaKoloru animacjaTla;
-	AnimacjaKoloru animacjaTlaPoKliknieciu;
-	
-	unsigned int padding_top_down, padding_left_right;
-	
-private:
-	std::string tekst;
-	Czcionka* czcionka;
-	
-public:
-	Przycisk(float x, float y, Czcionka* czcionka, const char* tekst);
-	~Przycisk();
-	
-	void rysuj() override;
-	
-	Obiekt * aktualizuj() override;
-	void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
-	void pusc(unsigned int klawisz, unsigned char zrodlo) override;
+namespace ui {
 
-	void przesun(float x, float y) override;
-	void ustawPozycje(float x, float y) override;
-	
-	
-	void ustawAkcje(T* klasa, void (T::*a)());
-	void ustawPadding(unsigned int padding_td, unsigned int padding_lr);
-	void ustawMinWymiary(unsigned int min_szerokosc, unsigned int min_wysokosc);
-	void ustawKolorCzcionki(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
-	void ustawKolorTla(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
-	void ustawAnimacjeTla(const sf::Color& docelowy, float szybkosc);
-	void ustawAnimacjeTlaPoKliknieciu(const sf::Color& docelowy, float szybkosc);
-	
-private:
-	void generujNapis();
-	void liczWymiary();
-	void generujTlo();
-	void aktualizujPozycje();
-	void aktualizujKolor();
-};
+	template < class T >
+	class Przycisk : public Obiekt
+	{
+	public:
+		T * wskKlasa;
+		void (T::*wskAkcja)();
+
+		sf::Text napis;
+		sf::RectangleShape tlo;
+
+		AnimacjaKoloru animacjaTla;
+		AnimacjaKoloru animacjaTlaPoKliknieciu;
+
+		unsigned int padding_top_down, padding_left_right;
+
+	private:
+		std::string tekst;
+		Czcionka* czcionka;
+
+	public:
+		Przycisk(float x, float y, Czcionka* czcionka, const char* tekst);
+		~Przycisk();
+
+		void rysuj() override;
+
+		Obiekt * aktualizuj() override;
+		void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
+		void pusc(unsigned int klawisz, unsigned char zrodlo) override;
+
+		void przesun(float x, float y) override;
+		void ustawPozycje(float x, float y) override;
+
+
+		void ustawAkcje(T* klasa, void (T::*a)());
+		void ustawPadding(unsigned int padding_td, unsigned int padding_lr);
+		void ustawMinWymiary(unsigned int min_szerokosc, unsigned int min_wysokosc);
+		void ustawKolorCzcionki(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
+		void ustawKolorTla(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
+		void ustawAnimacjeTla(const sf::Color& docelowy, float szybkosc);
+		void ustawAnimacjeTlaPoKliknieciu(const sf::Color& docelowy, float szybkosc);
+
+	private:
+		void generujNapis();
+		void liczWymiary();
+		void generujTlo();
+		void aktualizujPozycje();
+		void aktualizujKolor();
+	};
+
+}
 
 #include "templates/przycisk.tpp"
 

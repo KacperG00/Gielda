@@ -5,13 +5,17 @@
 
 #include <vector>
 
-class Uklad
-{
-public:
-	std::vector <Obiekt*> obiekty;
+namespace ui {
 
-	Uklad();
-	~Uklad();
-};
+	class Uklad
+	{
+	public:
+		std::vector <Obiekt*> obiekty;
+
+		Uklad();
+		~Uklad();
+	};
+
+}
 
 #endif // GIELDA_UI_UKLAD_H__

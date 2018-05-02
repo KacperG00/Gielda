@@ -26,7 +26,7 @@ class UI
 public:
 	static App* aplikacja;
 	static sf::RenderWindow* okno;
-	static Obiekt* aktualnieAktywnyObiekt;
+	static ui::Obiekt* aktualnieAktywnyObiekt;
 	
 	static sf::Event wydarzenie;
 	static bool klawiszWcisniety[LICZBA_KLAWISZY];
@@ -35,8 +35,8 @@ public:
 	
 	
 private:
-	std::vector<Czcionka> czcionki;
-	std::vector<Uklad*> uklady;
+	std::vector<ui::Czcionka> czcionki;
+	std::vector<ui::Uklad*> uklady;
 	
 public:
 	void utworzUI(sf::RenderWindow* window);
@@ -46,9 +46,9 @@ public:
 	
 	void wybierzUklad(unsigned int uklad);
 
-	inline void dodajCzcionke(const Czcionka& czcionka) {czcionki.push_back(czcionka);}
-	Uklad * dodajUklad();
-	void dodajObiekt(Obiekt* obiekt, unsigned int uklad);
+	inline void dodajCzcionke(const ui::Czcionka& czcionka) {czcionki.push_back(czcionka);}
+	ui::Uklad * dodajUklad();
+	void dodajObiekt(ui::Obiekt* obiekt, unsigned int uklad);
 	
 	void czyscWszystko();
 	void zamknijOkno() {okno->close();}

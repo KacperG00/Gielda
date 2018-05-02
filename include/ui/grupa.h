@@ -5,26 +5,30 @@
 
 #include <vector>
 
-class Grupa : public Obiekt
-{
-public:
-	std::vector<Obiekt*> obiekty;
+namespace ui {
 
-	// widoczny obszar grupy
-	float w_x, w_y, w_szer, w_wys;
+	class Grupa : public Obiekt
+	{
+	public:
+		std::vector<Obiekt*> obiekty;
 
-public:
-	Grupa();
-	Grupa(float x, float y, float szerokosc, float wysokosc);
-	~Grupa();
+		// widoczny obszar grupy
+		float w_x, w_y, w_szer, w_wys;
 
-	void rysuj() override;
-	Obiekt * aktualizuj() override;
-	void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
-	void pusc(unsigned int klawisz, unsigned char zrodlo) override;
+	public:
+		Grupa();
+		Grupa(float x, float y, float szerokosc, float wysokosc);
+		~Grupa();
 
-	void przesun(float x, float y) override;
-	void ustawPozycje(float x, float y) override;
-};
+		void rysuj() override;
+		Obiekt * aktualizuj() override;
+		void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
+		void pusc(unsigned int klawisz, unsigned char zrodlo) override;
+
+		void przesun(float x, float y) override;
+		void ustawPozycje(float x, float y) override;
+	};
+
+}
 
 #endif // GIELDA_UI_GRUPA_H__

@@ -4,7 +4,7 @@
 
 App* UI::aplikacja = nullptr;
 sf::RenderWindow* UI::okno = nullptr;
-Obiekt * UI::aktualnieAktywnyObiekt = nullptr;
+ui::Obiekt * UI::aktualnieAktywnyObiekt = nullptr;
 
 sf::Event UI::wydarzenie;
 bool UI::klawiszWcisniety[LICZBA_KLAWISZY];
@@ -32,9 +32,9 @@ void UI::rysuj()
 
 void UI::aktualizuj()
 {
-	Obiekt * objwsk = nullptr;
+	ui::Obiekt * objwsk = nullptr;
 
-	std::vector<Obiekt*> * obiekty = nullptr;
+	std::vector<ui::Obiekt*> * obiekty = nullptr;
 
 	if (aktualnyUklad >= 0 && (unsigned int)aktualnyUklad < uklady.size())
 	{
@@ -48,7 +48,7 @@ void UI::aktualizuj()
 			{
 				if ((objwsk = obiekty->at(i)->aktualizuj()) && (objwsk != nullptr))
 				{
-					if(objwsk->stan & Obiekt::AKTYWNY)
+					if(objwsk->stan & ui::Obiekt::AKTYWNY)
 						aktualnieAktywnyObiekt = objwsk;
 				}
 			}
@@ -84,16 +84,16 @@ void UI::wybierzUklad(unsigned int uklad)
 
 
 
-Uklad * UI::dodajUklad()
+ui::Uklad * UI::dodajUklad()
 {
-	Uklad * uklad = new Uklad;
+	ui::Uklad * uklad = new ui::Uklad;
 	uklady.push_back(uklad);
 	aktualnyUklad++;
 
 	return uklad;
 }
 
-void UI::dodajObiekt(Obiekt* obiekt, unsigned int uklad)
+void UI::dodajObiekt(ui::Obiekt* obiekt, unsigned int uklad)
 {
 	obiekt->render_target = okno;
 	uklady[uklad]->obiekty.push_back(obiekt);

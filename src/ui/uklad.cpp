@@ -1,14 +1,18 @@
 #include "ui/uklad.h"
 
-Uklad::Uklad()
-{
-}
+namespace ui {
 
-Uklad::~Uklad()
-{
-	for (unsigned int i = 0; i < obiekty.size(); ++i)
+	Uklad::Uklad()
 	{
-		delete obiekty[0];
-		obiekty.erase(obiekty.begin());
 	}
+
+	Uklad::~Uklad()
+	{
+		for (unsigned int i = 0; i < obiekty.size(); ++i)
+		{
+			delete obiekty[0];
+			obiekty.erase(obiekty.begin());
+		}
+	}
+
 }

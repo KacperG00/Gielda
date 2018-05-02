@@ -7,42 +7,46 @@
 
 #include <vector>
 
-class Kontener : public Grupa
-{
-	Suwak *suwakPionowy, *suwakPoziomy;
-	float ostWartSuwakaPionowego, ostWartSuwakaPoziomego;
-	float gruboscSuwaka;
-	float gruboscKrawedzi;
+namespace ui {
 
-	// szerokosc i wysokosc zawartosci kontenera
-	float koniecW_x, koniecW_y;
+	class Kontener : public Grupa
+	{
+		Suwak *suwakPionowy, *suwakPoziomy;
+		float ostWartSuwakaPionowego, ostWartSuwakaPoziomego;
+		float gruboscSuwaka;
+		float gruboscKrawedzi;
 
-	sf::Sprite sprite;
-	sf::RenderTexture * tekstura;
-	float kam_x, kam_y, kam_s, kam_w;
+		// szerokosc i wysokosc zawartosci kontenera
+		float koniecW_x, koniecW_y;
 
-public:
-	Kontener(float x, float y, float szerokosc, float wysokosc);
-	~Kontener();
+		sf::Sprite sprite;
+		sf::RenderTexture * tekstura;
+		float kam_x, kam_y, kam_s, kam_w;
 
-	void rysuj() override;
-	Obiekt * aktualizuj() override;
-	void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
-	void pusc(unsigned int klawisz, unsigned char zrodlo) override;
+	public:
+		Kontener(float x, float y, float szerokosc, float wysokosc);
+		~Kontener();
 
-	void odswiezPozObiektow();
+		void rysuj() override;
+		Obiekt * aktualizuj() override;
+		void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
+		void pusc(unsigned int klawisz, unsigned char zrodlo) override;
 
-	void przesun(float x, float y) override;
-	void ustawPozycje(float x, float y) override;
+		void odswiezPozObiektow();
 
-	void przesunKamere(float x, float y);
-	void ustawKamere(float x, float y);
+		void przesun(float x, float y) override;
+		void ustawPozycje(float x, float y) override;
 
-	void dodajObiekt(Obiekt* obiekt);
+		void przesunKamere(float x, float y);
+		void ustawKamere(float x, float y);
 
-private:
-	void ustawSuwak(bool poziomy);
-	void ustawWymiaryTekstury(float szerokosc, float wysokosc);
-};
+		void dodajObiekt(Obiekt* obiekt);
+
+	private:
+		void ustawSuwak(bool poziomy);
+		void ustawWymiaryTekstury(float szerokosc, float wysokosc);
+	};
+
+}
 
 #endif // GIELDA_UI_KONTENER_H__

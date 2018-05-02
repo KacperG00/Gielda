@@ -21,7 +21,7 @@ int main(int argc, const char* argv[])
 	//gra->zapisz("dane/startowe_dane.txt");
 	
 	//gra->info();
-	Czcionka cz_francoisone;
+	ui::Czcionka cz_francoisone;
 	wczytajCzcionke(cz_francoisone,"resources/FrancoisOne-Regular.ttf");
 	zmienKolorCzcionki(cz_francoisone, sf::Color(0x11, 0x11, 0x11, 0xff));
 	zmienWielkoscCzcionki(cz_francoisone, 64);
@@ -30,33 +30,33 @@ int main(int argc, const char* argv[])
 	void (Gra::*gra_funkcja)() = &Gra::info;
 	void (UI::*gui_funkcja)() = &UI::zamknijOkno;
 	
-	Przycisk<Gra> * przycisk1 = new Przycisk<Gra>(0, 3, &cz_francoisone, "Start");
+	ui::Przycisk<Gra> * przycisk1 = new ui::Przycisk<Gra>(0, 3, &cz_francoisone, "Start");
 	przycisk1->ustawAkcje(gra, gra_funkcja);
 	przycisk1->ustawMinWymiary(560, 100);
 	przycisk1->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk1->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk1->ustawKolorTla(220, 220, 220, 255);
 	
-	Przycisk<Gra> * przycisk2 = new Przycisk<Gra>(0, 106, &cz_francoisone, "Options");
+	ui::Przycisk<Gra> * przycisk2 = new ui::Przycisk<Gra>(0, 106, &cz_francoisone, "Options");
 	przycisk2->ustawMinWymiary(460, 100);
 	przycisk2->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk2->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk2->ustawKolorTla(220, 220, 220, 255);
 
-	Przycisk<UI> * przycisk3 = new Przycisk<UI>(0, 518, &cz_francoisone, "Quit()");
+	ui::Przycisk<UI> * przycisk3 = new ui::Przycisk<UI>(0, 518, &cz_francoisone, "Quit()");
 	przycisk3->ustawAkcje(gui, gui_funkcja);
 	przycisk3->ustawMinWymiary(460, 100);
 	przycisk3->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk3->ustawKolorTla(220, 220, 220, 255);
 
-	Przycisk<UI> * przycisk4 = new Przycisk<UI>(0, 3, &cz_francoisone, "weird button LOL");
+	ui::Przycisk<UI> * przycisk4 = new ui::Przycisk<UI>(0, 3, &cz_francoisone, "weird button LOL");
 	przycisk4->ustawAkcje(gui, gui_funkcja);
 	przycisk4->ustawMinWymiary(800, 100);
 	przycisk4->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk4->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk4->ustawKolorTla(220, 220, 220, 255);
 
-	Kontener* kontener = new Kontener(0, 0, 501, 300);
+	ui::Kontener* kontener = new ui::Kontener(0, 0, 501, 300);
 	App::_GUI.dodajObiekt(kontener,0);
 	kontener->dodajObiekt(przycisk1);
 	kontener->dodajObiekt(przycisk2);
@@ -64,7 +64,7 @@ int main(int argc, const char* argv[])
 
 	kontener->odswiezPozObiektow();
 
-	Suwak * suwak = new Suwak(5,380,630,15,true);
+	ui::Suwak * suwak = new ui::Suwak(5,380,630,15,true);
 	suwak->ustawAnimacjeUchwytu(sf::Color(255, 140, 140, 255), 0.1f);
 	App::_GUI.dodajObiekt(suwak,0);
 
