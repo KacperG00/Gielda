@@ -38,6 +38,7 @@ namespace ui {
 		void rysuj() override;
 
 		Obiekt * aktualizuj() override;
+		void animuj() override;
 		void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
 		void pusc(unsigned int klawisz, unsigned char zrodlo) override;
 
@@ -58,7 +59,6 @@ namespace ui {
 		void liczWymiary();
 		void generujTlo();
 		void aktualizujPozycje();
-		void aktualizujKolor();
 	};
 
 }

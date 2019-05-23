@@ -35,6 +35,7 @@ namespace ui {
 		void rysuj() override;
 
 		Obiekt * aktualizuj() override;
+		void animuj() override;
 		void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
 		void pusc(unsigned int klawisz, unsigned char zrodlo) override;
 

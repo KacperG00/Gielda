@@ -29,6 +29,13 @@ namespace ui {
 	{
 		return nullptr;
 	}
+	void Grupa::animuj()
+	{
+		for(unsigned int i = 0; i < obiekty.size(); ++i)
+		{
+			obiekty[i]->animuj();
+		}
+	}
 	void Grupa::wcisnij(unsigned int klawisz, unsigned char zrodlo)
 	{
 

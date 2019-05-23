@@ -46,11 +46,7 @@ namespace ui {
 			obiekty[i]->rysuj();
 		}
 
-		//std::cerr << "Kam: " << kam_x << " " << kam_y << " " << kam_s << " " << kam_w << std::endl;
-
 		tekstura->display();
-
-		//std::cerr << "Tekstura: " << tekstura->getSize().x << " " << tekstura->getSize().y << std::endl;
 
 		render_target->draw(sprite);
 
@@ -99,9 +95,34 @@ namespace ui {
 					ostWartSuwakaPionowego = suwakPionowy->wartosc;
 				}
 			}
+			
+			reset = false;
+		}
+		else
+		{
+			if(!reset)
+			{
+				for(unsigned int i = 0; i < obiekty.size(); ++i)
+				{
+					obiekty[i]->stan -= obiekty[i]->stan & ( AKTYWNY + WCISNIETY );
+				}
+			}
+			
+			reset = true;
 		}
 
 		return aktywnyObiekt;
+	}
+	
+	void Kontener::animuj()
+	{
+		for (unsigned int i = 0; i < obiekty.size(); ++i)
+			obiekty[i]->animuj();
+		
+		if (suwakPionowy)
+			suwakPionowy->animuj();
+		if (suwakPoziomy)
+			suwakPoziomy->animuj();
 	}
 
 	void Kontener::wcisnij(unsigned int klawisz, unsigned char zrodlo)
@@ -266,17 +287,6 @@ namespace ui {
 				w_szer = szer - gruboscSuwaka;
 			}
 		}
-
-		//if (suwakPoziomy && suwakPionowy)
-		//{
-		//	delete suwakPoziomy;
-		//	suwakPoziomy = new Suwak(poz_x, poz_y + wys - gruboscSuwaka, szer - gruboscSuwaka, gruboscSuwaka, true);
-		//	suwakPoziomy->render_target = render_target;
-		//
-		//	delete suwakPionowy;
-		//	suwakPionowy = new Suwak(poz_x + szer - gruboscSuwaka, poz_y, gruboscSuwaka, wys - gruboscSuwaka, false);
-		//	suwakPionowy->render_target = render_target;
-		//}
 	}
 
 	void Kontener::utworzTeksture(float szerokosc, float wysokosc, const sf::Color& tlo)

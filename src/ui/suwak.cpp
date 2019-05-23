@@ -49,8 +49,6 @@ namespace ui {
 		Obiekt * wsk = nullptr, *aktualnyObiekt = nullptr;
 
 		if (stan & NIE_DO_AKTYWOWANIA)
-		// ???????????????????? było tu return false;
-		// to samo w kontener.cpp
 			return nullptr;
 
 		if (wsk = sprawdzAktywnosc())
@@ -79,8 +77,23 @@ namespace ui {
 			ostPozMyszy_y = UI::pozMyszy_y;
 		}
 
-		uchwyt.setFillColor(animacjaUchwytu.kolorAktualny);
 		return aktualnyObiekt;
+	}
+	
+	void Suwak::animuj()
+	{
+		if (stan & AKTYWNY)
+		{
+			if (!animacjaUchwytu.czyAktualnyRownyDocelowy())
+				animacjaUchwytu.animuj();
+		}
+		else
+		{
+			if (!animacjaUchwytu.czyAktualnyRownyPodstawowy())
+				animacjaUchwytu.animuj(true);
+		}
+		
+		uchwyt.setFillColor(animacjaUchwytu.kolorAktualny);
 	}
 
 	void Suwak::wcisnij(unsigned int klawisz, unsigned char zrodlo)
@@ -90,8 +103,6 @@ namespace ui {
 			stan |= WCISNIETY;
 			ostPozMyszy_x = UI::pozMyszy_x;
 			ostPozMyszy_y = UI::pozMyszy_y;
-
-			std::cerr << "oh yeah\n";
 		}
 	}
 
@@ -199,12 +210,7 @@ namespace ui {
 
 	void Suwak::aktualizujUchwyt()
 	{
-		if (stan & AKTYWNY)
-			if (!animacjaUchwytu.czyAktualnyRownyDocelowy())
-				animacjaUchwytu.animuj();
-			else
-				if (!animacjaUchwytu.czyAktualnyRownyPodstawowy())
-					animacjaUchwytu.animuj(true);
+		
 	}
 
 }

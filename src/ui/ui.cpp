@@ -65,15 +65,17 @@ void UI::aktualizuj()
 	{
 		aktualnieAktywnyObiekt = nullptr;
 	}
+}
 
-
-
-	/*if (aktualnieAktywnyObiekt)
+void UI::animuj()
+{
+	if(aktualnyUklad >= 0 && (unsigned int)aktualnyUklad < uklady.size())
 	{
-		std::cerr << "stan : " << aktualnieAktywnyObiekt->stan << std::endl;
+		for(unsigned int i = 0; i < uklady[aktualnyUklad]->obiekty.size(); ++i)
+		{
+			uklady[aktualnyUklad]->obiekty[i]->animuj();
+		}
 	}
-	
-	std::cerr << "Aktualnie aktywny obiekt: " << aktualnieAktywnyObiekt << std::endl;*/
 }
 
 

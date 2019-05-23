@@ -41,9 +41,36 @@ namespace ui {
 		Obiekt * aktualnyObiekt = nullptr;
 
 		aktualnyObiekt = sprawdzAktywnosc();
-		aktualizujKolor();
 	
 		return aktualnyObiekt;
+	}
+
+	template < class T >
+	void Przycisk<T>::animuj()
+	{
+		if( stan & WCISNIETY )
+		{
+			animacjaTlaPoKliknieciu.animuj();
+			tlo.setFillColor(animacjaTlaPoKliknieciu.kolorAktualny);
+		}
+		else if( stan & AKTYWNY )
+		{
+			if( !(animacjaTla.czyAktualnyRownyDocelowy()) )
+			{
+				animacjaTla.animuj(true);
+			}
+		
+			tlo.setFillColor(animacjaTla.kolorAktualny);
+		}
+		else
+		{
+			if( !(animacjaTla.czyAktualnyRownyPodstawowy()) )
+			{
+				animacjaTla.animuj();
+			}
+		
+			tlo.setFillColor(animacjaTla.kolorAktualny);
+		}
 	}
 
 	template < class T >
@@ -171,7 +198,6 @@ namespace ui {
 	void Przycisk<T>::generujTlo()
 	{
 		aktualizujPozycje();
-		aktualizujKolor();
 	}
 
 	template < class T >
@@ -179,34 +205,6 @@ namespace ui {
 	{
 		tlo.setSize(sf::Vector2f(szer, wys));
 		tlo.setPosition(poz_x, poz_y);
-	}
-
-	template < class T >
-	void Przycisk<T>::aktualizujKolor()
-	{
-		if( stan & WCISNIETY )
-		{
-			animacjaTlaPoKliknieciu.animuj();
-			tlo.setFillColor(animacjaTlaPoKliknieciu.kolorAktualny);
-		}
-		else if( stan & AKTYWNY )
-		{
-			if( !(animacjaTla.czyAktualnyRownyDocelowy()) )
-			{
-				animacjaTla.animuj(true);
-			}
-		
-			tlo.setFillColor(animacjaTla.kolorAktualny);
-		}
-		else
-		{
-			if( !(animacjaTla.czyAktualnyRownyPodstawowy()) )
-			{
-				animacjaTla.animuj();
-			}
-		
-			tlo.setFillColor(animacjaTla.kolorAktualny);
-		}
 	}
 
 }

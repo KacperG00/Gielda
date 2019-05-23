@@ -124,6 +124,7 @@ int main(int argc, const char* argv[])
 		App::_glowneOkno->clear();
 		App::_GUI.rysuj();
 		App::_GUI.aktualizuj();
+		App::_GUI.animuj();
 		App::_glowneOkno->draw(pozmyszyx_text);
 		App::_glowneOkno->draw(pozmyszyy_text);
 		App::_glowneOkno->display();

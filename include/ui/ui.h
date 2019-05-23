@@ -43,6 +43,7 @@ public:
 
 	void rysuj();
 	void aktualizuj();
+	void animuj();
 	
 	void wybierzUklad(unsigned int uklad);
 

@@ -45,6 +45,7 @@ namespace ui {
 		virtual void rysuj() = 0;
 
 		virtual Obiekt * aktualizuj() = 0;
+		virtual void animuj() = 0;
 		virtual void wcisnij(unsigned int klawisz, unsigned char zrodlo) = 0;
 		virtual void pusc(unsigned int klawisz, unsigned char zrodlo) = 0;
 

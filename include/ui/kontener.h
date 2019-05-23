@@ -11,6 +11,7 @@ namespace ui {
 
 	class Kontener : public Grupa
 	{
+	public:
 		Suwak *suwakPionowy, *suwakPoziomy;
 		float ostWartSuwakaPionowego, ostWartSuwakaPoziomego;
 		float gruboscSuwaka;
@@ -23,6 +24,9 @@ namespace ui {
 		sf::RenderTexture * tekstura;
 		sf::Color tloTekstury;
 		float kam_x, kam_y, kam_s, kam_w;
+		
+	private:
+		bool reset;
 
 	public:
 		Kontener(float x, float y, float szerokosc, float wysokosc);
@@ -30,6 +34,7 @@ namespace ui {
 
 		void rysuj() override;
 		Obiekt * aktualizuj() override;
+		void animuj() override;
 		void wcisnij(unsigned int klawisz, unsigned char zrodlo) override;
 		void pusc(unsigned int klawisz, unsigned char zrodlo) override;
 
