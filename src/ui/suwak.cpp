@@ -49,7 +49,9 @@ namespace ui {
 		Obiekt * wsk = nullptr, *aktualnyObiekt = nullptr;
 
 		if (stan & NIE_DO_AKTYWOWANIA)
-			return false;
+		// ???????????????????? było tu return false;
+		// to samo w kontener.cpp
+			return nullptr;
 
 		if (wsk = sprawdzAktywnosc())
 			aktualnyObiekt = wsk;

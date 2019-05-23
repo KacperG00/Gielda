@@ -21,6 +21,7 @@ namespace ui {
 
 		sf::Sprite sprite;
 		sf::RenderTexture * tekstura;
+		sf::Color tloTekstury;
 		float kam_x, kam_y, kam_s, kam_w;
 
 	public:
@@ -44,7 +45,7 @@ namespace ui {
 
 	private:
 		void ustawSuwak(bool poziomy);
-		void ustawWymiaryTekstury(float szerokosc, float wysokosc);
+		void utworzTeksture(float szerokosc, float wysokosc, const sf::Color& tlo = sf::Color(0, 0, 0, 0));
 	};
 
 }

@@ -32,7 +32,7 @@ int main(int argc, const char* argv[])
 	
 	ui::Przycisk<Gra> * przycisk1 = new ui::Przycisk<Gra>(0, 3, &cz_francoisone, "Start");
 	przycisk1->ustawAkcje(gra, gra_funkcja);
-	przycisk1->ustawMinWymiary(560, 100);
+	przycisk1->ustawMinWymiary(460, 100);
 	przycisk1->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk1->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk1->ustawKolorTla(220, 220, 220, 255);
@@ -43,7 +43,7 @@ int main(int argc, const char* argv[])
 	przycisk2->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk2->ustawKolorTla(220, 220, 220, 255);
 
-	ui::Przycisk<UI> * przycisk3 = new ui::Przycisk<UI>(0, 518, &cz_francoisone, "Quit()");
+	ui::Przycisk<UI> * przycisk3 = new ui::Przycisk<UI>(0, 209, &cz_francoisone, "Quit()");
 	przycisk3->ustawAkcje(gui, gui_funkcja);
 	przycisk3->ustawMinWymiary(460, 100);
 	przycisk3->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
@@ -51,12 +51,12 @@ int main(int argc, const char* argv[])
 
 	ui::Przycisk<UI> * przycisk4 = new ui::Przycisk<UI>(0, 3, &cz_francoisone, "weird button LOL");
 	przycisk4->ustawAkcje(gui, gui_funkcja);
-	przycisk4->ustawMinWymiary(800, 100);
+	przycisk4->ustawMinWymiary(460, 100);
 	przycisk4->ustawAnimacjeTla(sf::Color(255, 100, 100, 255), 0.05f);
 	przycisk4->ustawAnimacjeTlaPoKliknieciu(sf::Color(230, 100, 100, 255), 0.5f);
 	przycisk4->ustawKolorTla(220, 220, 220, 255);
 
-	ui::Kontener* kontener = new ui::Kontener(0, 0, 501, 300);
+	ui::Kontener* kontener = new ui::Kontener(0, 0, 501, 312);
 	App::_GUI.dodajObiekt(kontener,0);
 	kontener->dodajObiekt(przycisk1);
 	kontener->dodajObiekt(przycisk2);

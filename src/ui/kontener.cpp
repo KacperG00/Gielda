@@ -16,7 +16,7 @@ namespace ui {
 	{
 		stan = Obiekt::AKTYWOWALNY;
 
-		ustawWymiaryTekstury(w_szer, w_wys);
+		utworzTeksture(w_szer, w_wys, sf::Color(255, 0, 255, 255));
 		sprite.setPosition(sf::Vector2f(poz_x, poz_y));
 		sprite.setTexture(tekstura->getTexture());
 	}
@@ -37,7 +37,7 @@ namespace ui {
 
 	void Kontener::rysuj()
 	{
-		tekstura->clear(sf::Color(50, 50, 50, 255));
+		tekstura->clear(sf::Color(0, 0, 0, 0));
 
 		sprite.setTextureRect(sf::IntRect((int)kam_x, (int)kam_y, (int)kam_s, (int)kam_w));
 
@@ -46,11 +46,11 @@ namespace ui {
 			obiekty[i]->rysuj();
 		}
 
-		std::cerr << "Kam: " << kam_x << " " << kam_y << std::endl;
+		//std::cerr << "Kam: " << kam_x << " " << kam_y << " " << kam_s << " " << kam_w << std::endl;
 
 		tekstura->display();
 
-		std::cerr << "Tekstura: " << tekstura->getSize().x << " " << tekstura->getSize().y << std::endl;
+		//std::cerr << "Tekstura: " << tekstura->getSize().x << " " << tekstura->getSize().y << std::endl;
 
 		render_target->draw(sprite);
 
@@ -65,7 +65,7 @@ namespace ui {
 		Obiekt * wsk = nullptr, *aktywnyObiekt = nullptr;
 
 		if (stan & NIE_DO_AKTYWOWANIA)
-			return false;
+			return nullptr;
 
 		if (wsk = sprawdzAktywnosc())
 		{
@@ -80,7 +80,7 @@ namespace ui {
 				if (wsk = suwakPoziomy->aktualizuj())
 					aktywnyObiekt = wsk;
 
-				// Przesuniêcie kamery za pomoc¹ suwaka
+				// przesuniecie kamery za pomoca suwaka
 				if (suwakPoziomy->wartosc != ostWartSuwakaPoziomego)
 				{
 					ustawKamere(suwakPoziomy->wartosc * (koniecW_x - kam_s), kam_y);
@@ -92,7 +92,7 @@ namespace ui {
 				if (wsk = suwakPionowy->aktualizuj())
 					aktywnyObiekt = wsk;
 
-				// Przesuniêcie za pomoc¹ suwaka
+				// przesuniecie za pomoca suwaka
 				if (suwakPionowy->wartosc != ostWartSuwakaPionowego)
 				{
 					ustawKamere(kam_x, suwakPionowy->wartosc * (koniecW_y - kam_w));
@@ -209,9 +209,10 @@ namespace ui {
 	{
 		// przygotowanie i dodawanie obiektu
 		obiekt->przydzielDoGrupy(this);
+		obiekt->render_target = tekstura;
 		obiekty.push_back(obiekt);
 
-		// wykrywanie czy obiekt nie mieœci siê w kontenerze
+		// wykrywanie czy obiekt nie miesci sie w kontenerze
 		if (!suwakPionowy && (obiekt->poz_y - poz_y) + obiekt->wys > wys)
 			ustawSuwak(false);
 		if (!suwakPoziomy && (obiekt->poz_x - poz_x) + obiekt->szer > szer)
@@ -232,7 +233,7 @@ namespace ui {
 
 		if (wymiaryTeksturyZmienione)
 		{
-			ustawWymiaryTekstury(koniecW_x, koniecW_y);
+			utworzTeksture(koniecW_x, koniecW_y);
 
 			for (unsigned int i = 0; i < obiekty.size(); ++i)
 				obiekty[i]->render_target = tekstura;
@@ -278,7 +279,7 @@ namespace ui {
 		//}
 	}
 
-	void Kontener::ustawWymiaryTekstury(float szerokosc, float wysokosc)
+	void Kontener::utworzTeksture(float szerokosc, float wysokosc, const sf::Color& tlo)
 	{
 		if (tekstura != nullptr)
 			delete tekstura;
@@ -286,6 +287,11 @@ namespace ui {
 		tekstura = new sf::RenderTexture();
 		tekstura->create(szerokosc, wysokosc);
 		sprite.setTexture(tekstura->getTexture(), true);
+		
+		tloTekstury.r = tlo.r;
+		tloTekstury.g = tlo.g;
+		tloTekstury.b = tlo.b;
+		tloTekstury.a = tlo.a;
 	}
 
 }

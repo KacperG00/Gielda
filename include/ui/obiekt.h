@@ -13,10 +13,10 @@ namespace ui {
 		sf::RenderTarget* render_target;
 		Grupa* grupa;
 
-		// wspó³rzêdne na teksturze do renderowania
+		// wspolrzedne na teksturze do renderowania
 		float poz_x, poz_y;
 
-		// wspó³rzêdne wzglêdem odleg³oœci od lewego górnego koñca okna
+		// wspolrzedne wzgledem odleglosci od lewego gornego konca okna
 		int wpoz_x, wpoz_y;
 
 		// wymiary

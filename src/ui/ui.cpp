@@ -68,12 +68,12 @@ void UI::aktualizuj()
 
 
 
-	if (aktualnieAktywnyObiekt)
+	/*if (aktualnieAktywnyObiekt)
 	{
 		std::cerr << "stan : " << aktualnieAktywnyObiekt->stan << std::endl;
 	}
 	
-	std::cerr << "Aktualnie aktywny obiekt: " << aktualnieAktywnyObiekt << std::endl;
+	std::cerr << "Aktualnie aktywny obiekt: " << aktualnieAktywnyObiekt << std::endl;*/
 }
 
 
